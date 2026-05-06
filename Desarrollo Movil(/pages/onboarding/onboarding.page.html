@@ -1,0 +1,53 @@
+<ion-content class="onboarding-page" padding>
+  <div class="onboarding-container">
+    
+    <div class="header-section">
+      <h1>Crea tu Perfil</h1>
+      <p>Estás a un paso de unirte a la partida.</p>
+    </div>
+
+    <ion-item class="custom-input" lines="none">
+      <ion-label position="stacked">Alias / Nickname</ion-label>
+      <ion-input [(ngModel)]="alias" placeholder="Ej: Jace Beleren"></ion-input>
+    </ion-item>
+
+    <ion-list class="role-list">
+      <ion-radio-group [(ngModel)]="role">
+        <ion-list-header>
+          <ion-label>¿Qué rol tendrás en el gremio?</ion-label>
+        </ion-list-header>
+
+        <ion-item lines="none">
+          <ion-icon name="storefront-outline" slot="start"></ion-icon>
+          <ion-label>Administrador de Tienda</ion-label>
+          <ion-radio slot="end" value="ADMIN"></ion-radio>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-icon name="game-controller-outline" slot="start"></ion-icon>
+          <ion-label>Jugador / Cliente</ion-label>
+          <ion-radio slot="end" value="CLIENT"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+
+    <div *ngIf="role === 'CLIENT'" class="client-section">
+      <p class="helper-text">Ingresa el código de 4 dígitos de tu tienda o escanea el QR del administrador.</p>
+      
+      <ion-item class="custom-input" lines="none">
+        <ion-label position="stacked">Código de Tienda</ion-label>
+        <ion-input [(ngModel)]="storeCode" maxlength="4" placeholder="Ej: A7X2"></ion-input>
+      </ion-item>
+      
+      <ion-button expand="block" fill="outline" class="qr-btn" (click)="scanQR()">
+        <ion-icon slot="start" name="qr-code-outline"></ion-icon>
+        Escanear Código QR
+      </ion-button>
+    </div>
+
+    <ion-button expand="block" class="submit-btn" (click)="saveProfile()" [disabled]="!isFormValid()">
+      Finalizar Registro
+    </ion-button>
+
+  </div>
+</ion-content>
