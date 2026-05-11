@@ -1,0 +1,152 @@
+:host {
+  --primary-gradient: linear-gradient(135deg, #ff8a00 0%, #da1b60 50%, #892cdc 100%);
+  --dark-bg: #0a0a0c;
+}
+
+.home-admin-page {
+  --background: var(--dark-bg);
+  
+  &::part(background) {
+    background: var(--dark-bg) 
+                radial-gradient(circle at top right, rgba(218, 27, 96, 0.1), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(137, 44, 220, 0.1), transparent 40%);
+  }
+}
+
+/* Toolbar Estilo Glass */
+.transparent-toolbar {
+  --background: transparent;
+  --color: #ffffff;
+  padding-top: 10px;
+
+  .admin-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    opacity: 0.5;
+  }
+
+  .qr-nav-btn {
+    --color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-left: 12px;
+    
+    ion-icon {
+      font-size: 24px;
+      color: #da1b60;
+    }
+  }
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%; /* Centrado vertical levemente hacia arriba */
+}
+
+/* Avatar con Efecto de Aura Mágica */
+.avatar-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 24px;
+
+  .glow-ring {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    filter: blur(15px);
+    opacity: 0.6;
+    animation: pulse aura 4s infinite alternate;
+  }
+
+  .profile-img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    object-fit: cover;
+    z-index: 2;
+  }
+
+  .fallback-img {
+    font-size: 140px;
+    color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Estilo de Texto */
+.welcome-text {
+  text-align: center;
+
+  p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 900;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: -0.5px;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  }
+}
+
+@keyframes aura {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.1); opacity: 0.7; }
+}
+/* Estilos Glassmorphism para la Barra Inferior */
+.custom-tab-bar {
+  --background: rgba(10, 10, 12, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 0;
+}
+
+.tab-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .tab-btn {
+    --color: rgba(255, 255, 255, 0.5);
+    font-size: 10px;
+    height: 50px;
+    margin: 0;
+    flex: 1;
+
+    ion-icon {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    span {
+      font-weight: 500;
+      text-transform: none;
+    }
+
+    &.active {
+      --color: #da1b60; /* Rosa brillante para Cliente */
+      filter: drop-shadow(0 0 8px rgba(218, 27, 96, 0.4));
+    }
+  }
+
+  /* Color distinto para el Admin (Opcional, para diferenciar visualmente) */
+  &.admin-tabs .tab-btn.active {
+    --color: #892cdc; /* Morado para Admin */
+    filter: drop-shadow(0 0 8px rgba(137, 44, 220, 0.4));
+  }
+}

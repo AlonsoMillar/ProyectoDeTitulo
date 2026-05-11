@@ -1,0 +1,45 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="goToStoreCode()" class="qr-nav-btn">
+        <ion-icon name="qr-code-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="admin-title">Panel Admin</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" class="logout-btn">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-admin-page ion-padding">
+  <div style="text-align: center; margin-top: 50px;">
+    <h2>Bienvenido, Administrador</h2>
+    <p>Utiliza el menú inferior para navegar a los mensajes o eventos.</p>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="custom-tab-bar">
+    <div class="tab-container admin-tabs">
+      <ion-button fill="clear" (click)="irA('/home-admin')" class="tab-btn active">
+        <ion-icon name="home-outline"></ion-icon>
+        <span></span>
+      </ion-button>
+
+      <ion-button fill="clear" (click)="irA('/mensajes-admin')" class="tab-btn">
+        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+        <span></span>
+      </ion-button>
+
+      <ion-button fill="clear" (click)="irA('/eventos')" class="tab-btn">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span></span>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

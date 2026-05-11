@@ -1,0 +1,71 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    
+    <!-- 🔙 Botón volver -->
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" class="back-btn">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title class="admin-title">Código de Tienda</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="store-code-page" padding>
+  <div class="store-code-container">
+    
+    <div class="header-section">
+      <h2>Mi Gremio</h2>
+      <p>Comparte este código para que los jugadores se unan a tu tienda.</p>
+    </div>
+
+    <div class="code-card">
+      <span class="label">CÓDIGO DE TIENDA</span>
+
+      <!-- Código -->
+      <h1 class="magic-code" *ngIf="storeCode !== 'Cargando...'">
+        {{ storeCode }}
+      </h1>
+
+      <h1 class="magic-code loading" *ngIf="storeCode === 'Cargando...'">
+        ...
+      </h1>
+
+      <!-- QR -->
+      <div 
+        class="qr-wrapper" 
+        *ngIf="storeCode !== 'Cargando...' && storeCode !== 'Sin código' && storeCode !== 'Error al cargar'">
+        
+        <qrcode 
+          [qrdata]="storeCode" 
+          [width]="200" 
+          [errorCorrectionLevel]="'M'"
+          [colorDark]="'#0a0a0c'"
+          [colorLight]="'#ffffff'">
+        </qrcode>
+      </div>
+
+      <!-- Estados -->
+      <p class="status-text" *ngIf="storeCode === 'Sin código'">
+        Este usuario no tiene código de tienda
+      </p>
+
+      <p class="status-text error" *ngIf="storeCode === 'Error al cargar'">
+        Error al cargar el código
+      </p>
+
+      <!-- Compartir -->
+      <ion-button 
+        fill="clear" 
+        class="share-btn" 
+        (click)="shareCode()"
+        [disabled]="storeCode === 'Cargando...' || storeCode === 'Sin código'">
+        
+        <ion-icon name="share-social-outline" slot="start"></ion-icon>
+        Compartir Código
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

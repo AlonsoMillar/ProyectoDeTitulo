@@ -1,0 +1,66 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-button *ngIf="chatActivo" (click)="chatActivo = null" color="light">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button *ngIf="!chatActivo" (click)="irA('/home-admin')" color="light">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-title class="admin-title">
+      {{ chatActivo ? chatActivo.senderAlias : 'Bandeja de Entrada' }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="admin-chat-page">
+
+  <div class="inbox-container" *ngIf="!chatActivo">
+    <div *ngFor="let conv of conversaciones" (click)="abrirChat(conv)" class="chat-item">
+      <ion-avatar slot="start" class="chat-avatar">
+        <div class="avatar-letter">{{ conv.senderAlias?.charAt(0) || '?' }}</div>
+      </ion-avatar>
+      
+      <div class="chat-info">
+        <div class="chat-title">{{ conv.senderAlias || 'Usuario Anónimo' }}</div>
+        <div class="chat-sub">{{ conv.lastMessage }}</div>
+      </div>
+      
+      <div class="chat-meta">
+        <small>{{ conv.lastTime | date:'shortTime' }}</small>
+      </div>
+    </div>
+
+    <div *ngIf="conversaciones.length === 0" class="empty-inbox">
+      <p>No hay mensajes pendientes de clientes.</p>
+    </div>
+  </div>
+
+  <div class="chat-container" *ngIf="chatActivo">
+    <div *ngFor="let msg of mensajes" 
+         [ngClass]="msg.senderRole === 'ADMIN' ? 'message-wrapper right' : 'message-wrapper left'">
+      
+      <div class="message-bubble">
+        <span class="sender-name" *ngIf="msg.senderRole !== 'ADMIN'">
+          {{ msg.senderAlias }}
+        </span>
+        <p>{{ msg.contenido }}</p>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="chatActivo">
+  <ion-toolbar class="glass-footer">
+    <div class="input-container">
+      <ion-input [(ngModel)]="nuevoTexto" placeholder="Escribir respuesta..." class="custom-chat-input"></ion-input>
+      <ion-button class="send-btn" shape="round" (click)="enviar()" [disabled]="!nuevoTexto.trim()">
+        <ion-icon name="send" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
