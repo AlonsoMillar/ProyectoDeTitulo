@@ -3,70 +3,138 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
-  // 1. RUTA INICIAL (Protegida)
+
+  // =========================================================
+  // REDIRECT PRINCIPAL
+  // =========================================================
   {
     path: '',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/home/home.module').then(m => m.HomePageModule)
+      import('./pages/redirect/redirect.module').then(
+        m => m.RedirectPageModule
+      )
   },
 
-  // 2. LOGIN (Público)
+  // =========================================================
+  // LOGIN
+  // =========================================================
   {
     path: 'login',
     loadChildren: () =>
-      import('./pages/login/login.module').then(m => m.LoginPageModule)
+      import('./pages/login/login.module').then(
+        m => m.LoginPageModule
+      )
   },
 
-  // 3. ONBOARDING (Protegido)
+  // =========================================================
+  // ONBOARDING
+  // =========================================================
   {
     path: 'onboarding',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/onboarding/onboarding.module').then(m => m.OnboardingPageModule)
+      import('./pages/onboarding/onboarding.module').then(
+        m => m.OnboardingPageModule
+      )
   },
 
-  // 4. HOMES (Protegidos por la lógica del Guard y los componentes)
+  // =========================================================
+  // HOME CLIENTE
+  // =========================================================
   {
     path: 'home',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/home/home.module').then(m => m.HomePageModule)
+      import('./pages/home/home.module').then(
+        m => m.HomePageModule
+      )
   },
+
+  // =========================================================
+  // HOME ADMIN
+  // =========================================================
   {
     path: 'home-admin',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/home-admin/home-admin.module').then(m => m.HomeAdminPageModule)
+      import('./pages/home-admin/home-admin.module').then(
+        m => m.HomeAdminPageModule
+      )
   },
 
-  // 5. MENSAJES (Añadimos seguridad aquí también)
+  // =========================================================
+  // MENSAJES CLIENTE
+  // =========================================================
   {
     path: 'mensajes',
     canActivate: [AuthGuard],
-    loadChildren: () => 
-      import('./pages/mensajes/mensajes.module').then( m => m.MensajesPageModule)
+    loadChildren: () =>
+      import('./pages/mensajes/mensajes.module').then(
+        m => m.MensajesPageModule
+      )
   },
+
+  // =========================================================
+  // MENSAJES ADMIN
+  // =========================================================
   {
     path: 'mensajes-admin',
     canActivate: [AuthGuard],
-    loadChildren: () => 
-      import('./pages/mensajes-admin/mensajes-admin.module').then( m => m.MensajesAdminPageModule)
+    loadChildren: () =>
+      import('./pages/mensajes-admin/mensajes-admin.module').then(
+        m => m.MensajesAdminPageModule
+      )
   },
 
-  // 6. STORE CODE
+  // =========================================================
+  // EVENTOS
+  // =========================================================
+
+  // =========================================================
+  // PERFIL
+  // =========================================================
+  {
+    path: 'perfil',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/perfil/perfil.module').then(
+        m => m.PerfilPageModule
+      )
+  },
+
+  // =========================================================
+  // STORE CODE
+  // =========================================================
   {
     path: 'store-code',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./pages/store-code/store-code.module').then(m => m.StoreCodePageModule)
+      import('./pages/store-code/store-code.module').then(
+        m => m.StoreCodePageModule
+      )
   },
 
-  // 7. FALLBACK (Siempre al final)
+  // =========================================================
+  // CONTACTO
+  // =========================================================
+  {
+    path: 'contacto',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./pages/contacto/contacto.module').then(
+        m => m.ContactoPageModule
+      )
+  },
+
+  // =========================================================
+  // FALLBACK
+  // =========================================================
   {
     path: '**',
     redirectTo: ''
   }
+
 ];
 
 @NgModule({

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { getAuth } from 'firebase/auth';
+
 import { UsuarioService } from '../../service/usuario.service';
 import { AuthService } from '../../service/auth.service';
 
@@ -11,7 +12,9 @@ import { AuthService } from '../../service/auth.service';
   standalone: false
 })
 export class HomeAdminPage implements OnInit {
-  userAlias: string = 'Cargando...'; 
+
+  userAlias: string = 'Cargando...';
+
   userAvatar: string | null = null;
 
   constructor(
@@ -25,42 +28,95 @@ export class HomeAdminPage implements OnInit {
   }
 
   async cargarDatosAdmin() {
+
     const auth = getAuth();
+
     const user = auth.currentUser;
-    
-    if (user) {
-      this.userAvatar = user.photoURL;
 
-      try {
-        const perfil: any = await this.usuarioService.consultarUsuario(user.uid);
+    if (!user) {
+      this.router.navigate(['/login'], {
+        replaceUrl: true
+      });
 
-        if (perfil && perfil.alias) {
-          this.userAlias = perfil.alias;
-        } else {
-          this.userAlias = 'Administrador';
-        }
+      return;
+    }
 
-      } catch (err: any) {
-        console.error('Error al cargar perfil de admin', err);
+    // avatar firebase
+    this.userAvatar = user.photoURL;
+
+    try {
+
+      const perfil: any =
+        await this.usuarioService.consultarUsuario(user.uid);
+
+      // alias admin
+      if (perfil?.alias) {
+
+        this.userAlias = perfil.alias;
+
+      } else {
+
         this.userAlias = 'Administrador';
       }
+
+    } catch (err) {
+
+      console.error(
+        'Error al cargar perfil admin:',
+        err
+      );
+
+      this.userAlias = 'Administrador';
     }
   }
 
-  // navegar a código
-  goToStoreCode() {
-    console.log('CLICK DETECTADO');
-    this.router.navigate(['/store-code'], { replaceUrl: true });
-  }
+  // =========================
+  // NAVEGACIÓN
+  // =========================
 
-  // logout igual que en home normal
-  async logout() {
-    await this.authService.logout();
-    this.router.navigate(['/login'], { replaceUrl: true });
-  }
-
-  // 🔥 NUEVO: Función para la barra de navegación inferior
   irA(ruta: string) {
+
     this.router.navigate([ruta]);
   }
+
+  // =========================
+  // QR STORE CODE
+  // =========================
+
+  goToStoreCode() {
+
+    this.router.navigate(
+      ['/store-code'],
+      {
+        replaceUrl: false
+      }
+    );
+  }
+
+  // =========================
+  // LOGOUT
+  // =========================
+
+  async logout() {
+
+    try {
+
+      await this.authService.logout();
+
+      this.router.navigate(
+        ['/login'],
+        {
+          replaceUrl: true
+        }
+      );
+
+    } catch (error) {
+
+      console.error(
+        'Error al cerrar sesión:',
+        error
+      );
+    }
+  }
+
 }

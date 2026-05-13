@@ -4,49 +4,51 @@
       <ion-button *ngIf="chatActivo" (click)="chatActivo = null" color="light">
         <ion-icon name="chevron-back-outline"></ion-icon>
       </ion-button>
-
       <ion-button *ngIf="!chatActivo" (click)="irA('/home-admin')" color="light">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    
     <ion-title class="admin-title">
-      {{ chatActivo ? chatActivo.senderAlias : 'Bandeja de Entrada' }}
+      {{ chatActivo ? chatActivo.senderAlias : 'BANDEJA DE ENTRADA' }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="admin-chat-page">
 
+  <!-- LISTA DE CHATS -->
   <div class="inbox-container" *ngIf="!chatActivo">
     <div *ngFor="let conv of conversaciones" (click)="abrirChat(conv)" class="chat-item">
-      <ion-avatar slot="start" class="chat-avatar">
-        <div class="avatar-letter">{{ conv.senderAlias?.charAt(0) || '?' }}</div>
-      </ion-avatar>
       
-      <div class="chat-info">
-        <div class="chat-title">{{ conv.senderAlias || 'Usuario Anónimo' }}</div>
-        <div class="chat-sub">{{ conv.lastMessage }}</div>
-      </div>
-      
-      <div class="chat-meta">
-        <small>{{ conv.lastTime | date:'shortTime' }}</small>
-      </div>
-    </div>
+      <!-- AVATAR (Lógica exacta del Home) -->
+      <div class="avatar-container">
+        <div class="glow-ring"></div>
+        
+        <img *ngIf="conv.userAvatar" 
+             [src]="conv.userAvatar" 
+             class="profile-img" 
+             referrerpolicy="no-referrer">
 
-    <div *ngIf="conversaciones.length === 0" class="empty-inbox">
-      <p>No hay mensajes pendientes de clientes.</p>
+        <div *ngIf="!conv.userAvatar" class="avatar-letter">
+          {{ conv.senderAlias?.charAt(0) || '?' }}
+        </div>
+      </div>
+
+      <div class="chat-info">
+        <div class="chat-header">
+          <span class="chat-title">{{ conv.senderAlias }}</span>
+          <span class="chat-time">{{ conv.lastTime | date:'h:mm a' }}</span>
+        </div>
+        <p class="chat-sub">{{ conv.lastMessage }}</p>
+      </div>
     </div>
   </div>
 
+  <!-- CHAT ABIERTO -->
   <div class="chat-container" *ngIf="chatActivo">
     <div *ngFor="let msg of mensajes" 
          [ngClass]="msg.senderRole === 'ADMIN' ? 'message-wrapper right' : 'message-wrapper left'">
-      
       <div class="message-bubble">
-        <span class="sender-name" *ngIf="msg.senderRole !== 'ADMIN'">
-          {{ msg.senderAlias }}
-        </span>
         <p>{{ msg.contenido }}</p>
       </div>
     </div>
@@ -57,9 +59,9 @@
 <ion-footer class="ion-no-border" *ngIf="chatActivo">
   <ion-toolbar class="glass-footer">
     <div class="input-container">
-      <ion-input [(ngModel)]="nuevoTexto" placeholder="Escribir respuesta..." class="custom-chat-input"></ion-input>
-      <ion-button class="send-btn" shape="round" (click)="enviar()" [disabled]="!nuevoTexto.trim()">
-        <ion-icon name="send" slot="icon-only"></ion-icon>
+      <ion-input [(ngModel)]="nuevoTexto" placeholder="Escribe un mensaje..." class="custom-chat-input"></ion-input>
+      <ion-button fill="clear" (click)="enviar()" [disabled]="!nuevoTexto.trim()">
+        <ion-icon name="send" slot="icon-only" color="primary"></ion-icon>
       </ion-button>
     </div>
   </ion-toolbar>

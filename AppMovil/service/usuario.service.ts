@@ -8,6 +8,8 @@ export interface UsuarioPerfil {
   role: string;
   storeCode?: string;
   createdAt?: number;
+  photoUrl?: string; 
+
 }
 
 export interface OnboardingRequest {

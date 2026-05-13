@@ -1,0 +1,77 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" class="back-btn" (click)="irA('/home')">
+        <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="profile-title">Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="profile-page">
+  <div class="main-content">
+    
+    <div class="header-section">
+      <div class="avatar-container">
+        <div class="glow-ring"></div>
+        <img *ngIf="userAvatar" [src]="userAvatar" class="profile-img">
+        <ion-icon *ngIf="!userAvatar" name="person-circle" class="fallback-img"></ion-icon>
+      </div>
+
+      <div class="role-badge" [ngClass]="perfil.role === 'ADMIN' ? 'admin-role' : 'client-role'">
+        <ion-icon [name]="perfil.role === 'ADMIN' ? 'shield-checkmark' : 'game-controller'"></ion-icon>
+        <span>{{ perfil.role === 'ADMIN' ? 'Administrador' : 'Jugador' }}</span>
+      </div>
+    </div>
+
+    <div class="info-card">
+      
+      <div class="input-group">
+        <div class="label-row">
+          <label>Alias del perfil</label>
+          <ion-button fill="clear" class="mini-edit-icon" (click)="toggleEdit()" *ngIf="!editMode">
+            <ion-icon name="create-outline"></ion-icon>
+          </ion-button>
+        </div>
+
+        <div class="field-container" [class.editing]="editMode">
+          <ion-icon name="person-outline" class="field-icon"></ion-icon>
+          <ion-input *ngIf="editMode" [(ngModel)]="nuevoAlias" class="custom-input" placeholder="Tu alias"></ion-input>
+          <div *ngIf="!editMode" class="field-value">{{ perfil.alias }}</div>
+        </div>
+      </div>
+
+      <div *ngIf="perfil.role === 'CLIENT'" class="input-group margin-top">
+        <label>Código del Gremio</label>
+        <div class="field-container" [class.editing]="editMode">
+          <ion-icon name="qr-code-outline" class="field-icon"></ion-icon>
+          <ion-input *ngIf="editMode" maxlength="4" [(ngModel)]="nuevoStoreCode" class="custom-input monospace" placeholder="ABCD"></ion-input>
+          <div *ngIf="!editMode" class="field-value monospace">{{ perfil.storeCode || '----' }}</div>
+          
+          <ion-button *ngIf="editMode" fill="clear" class="inner-scan-btn" (click)="cambiarTiendaQR()">
+            <ion-icon name="scan-outline"></ion-icon>
+          </ion-button>
+        </div>
+        <p class="helper-text" *ngIf="editMode">Escribe el código o usa el escáner QR</p>
+      </div>
+
+      <div class="action-buttons" *ngIf="editMode">
+        <ion-button expand="block" class="main-save-btn" (click)="guardarCambios()">
+          <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+          Guardar Cambios
+        </ion-button>
+        <ion-button expand="block" fill="clear" class="main-cancel-btn" (click)="cancelarEdicion()">
+          Cancelar
+        </ion-button>
+      </div>
+
+      <div class="divider"></div>
+
+      <ion-button expand="block" fill="clear" class="logout-btn" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        Cerrar Sesión
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

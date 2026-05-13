@@ -1,15 +1,20 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="glass-header">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home" color="light"></ion-back-button>
+      <ion-back-button defaultHref="/home" color="light" mode="md"></ion-back-button>
     </ion-buttons>
-    <ion-title>Soporte Técnico</ion-title>
+    
+    <ion-title mode="ios">Soporte Técnico</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="chat-page">
-  <div *ngIf="cargando" class="ion-text-center ion-padding">
-    <ion-spinner name="crescent" color="light"></ion-spinner>
+  <!-- Capas de fondo para dar profundidad -->
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+
+  <div *ngIf="cargando" class="loader-wrapper">
+    <ion-spinner name="bubbles" color="primary"></ion-spinner>
   </div>
 
   <div class="chat-container" *ngIf="!cargando">
@@ -17,27 +22,46 @@
          [ngClass]="msg.senderUid === currentUserUid ? 'message-wrapper right' : 'message-wrapper left'">
       
       <div class="message-bubble">
-        <span class="sender-name" *ngIf="msg.senderUid !== currentUserUid">
+        <!-- Badge del Administrador (Mantenido) -->
+        <div class="admin-badge" *ngIf="msg.senderUid !== currentUserUid">
+          <ion-icon name="shield-checkmark-outline"></ion-icon>
           {{ msg.senderAlias }}
-        </span>
-        <p>{{ msg.contenido }}</p>
-        <small class="msg-time" *ngIf="msg.createdAt">{{ msg.createdAt | date:'HH:mm' }}</small>
+        </div>
+
+        <div class="bubble-text">
+          <p>{{ msg.contenido }}</p>
+        </div>
+        
+        <div class="bubble-meta">
+          <small class="msg-time">{{ msg.createdAt | date:'HH:mm' }}</small>
+          <ion-icon name="checkmark-done-outline" *ngIf="msg.senderUid === currentUserUid"></ion-icon>
+        </div>
       </div>
     </div>
 
-    <div *ngIf="mensajes.length === 0" class="empty-chat">
-      <ion-icon name="chatbubbles-outline"></ion-icon>
-      <p>Cuéntanos tu duda, estamos para ayudarte.</p>
+    <!-- Empty State -->
+    <div *ngIf="mensajes.length === 0" class="premium-empty">
+      <div class="empty-art">
+        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+      </div>
+      <h3>¿Cómo podemos ayudarte?</h3>
+      <p>Envíanos un mensaje y un técnico te atenderá pronto.</p>
     </div>
   </div>
 </ion-content>
 
 <ion-footer class="ion-no-border">
-  <ion-toolbar class="glass-footer">
-    <div class="input-container">
-      <ion-input [(ngModel)]="nuevoTexto" placeholder="Escribe un mensaje..." class="custom-chat-input"></ion-input>
-      <ion-button class="send-btn" shape="round" (click)="enviar()" [disabled]="!nuevoTexto.trim()">
-        <ion-icon name="send" slot="icon-only"></ion-icon>
+  <ion-toolbar class="premium-footer">
+    <div class="input-wrapper">
+      <ion-input 
+        [(ngModel)]="nuevoTexto" 
+        placeholder="Escribe un mensaje..." 
+        class="main-chat-input"
+        (keyup.enter)="enviar()"
+      ></ion-input>
+      
+      <ion-button class="action-btn" (click)="enviar()" [disabled]="!nuevoTexto.trim()">
+        <ion-icon name="paper-plane" slot="icon-only"></ion-icon>
       </ion-button>
     </div>
   </ion-toolbar>

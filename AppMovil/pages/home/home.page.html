@@ -1,59 +1,183 @@
 <ion-header class="ion-no-border">
+
   <ion-toolbar class="transparent-toolbar">
-    <ion-title class="client-title">Tu Gremio</ion-title>
+
+    <!-- TÍTULO -->
+    <ion-title class="client-title">
+      Tu Gremio
+    </ion-title>
+
+    <!-- MENÚ -->
     <ion-buttons slot="end">
-      <ion-button (click)="logout()" class="logout-btn">
-        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+
+      <ion-button
+        id="click-trigger"
+        class="menu-trigger-btn"
+        fill="clear"
+      >
+        <ion-icon
+          name="ellipsis-vertical"
+          slot="icon-only">
+        </ion-icon>
       </ion-button>
+
     </ion-buttons>
+
+    <!-- POPOVER -->
+    <ion-popover
+      trigger="click-trigger"
+      triggerAction="click"
+      [dismissOnSelect]="true"
+      side="bottom"
+      alignment="end"
+    >
+
+      <ng-template>
+
+        <ion-content class="popover-menu-content">
+
+          <ion-list lines="none">
+
+            <ion-item
+              button
+              [routerLink]="['/perfil']"
+            >
+              <ion-icon
+                name="person-outline"
+                slot="start">
+              </ion-icon>
+
+              <ion-label>
+                Mi Perfil
+              </ion-label>
+            </ion-item>
+
+            <ion-item
+              button
+              [routerLink]="['/contacto']"
+            >
+              <ion-icon
+                name="information-circle-outline"
+                slot="start">
+              </ion-icon>
+
+              <ion-label>
+                Contacto y Visión
+              </ion-label>
+            </ion-item>
+
+          </ion-list>
+
+        </ion-content>
+
+      </ng-template>
+
+    </ion-popover>
+
   </ion-toolbar>
+
 </ion-header>
 
+<!-- CONTENT -->
+
 <ion-content class="home-page">
+
   <div class="main-content">
-    
+
+    <!-- AVATAR -->
     <div class="avatar-container">
+
       <div class="glow-ring"></div>
-      <img *ngIf="userAvatar" [src]="userAvatar" alt="Profile" class="profile-img" referrerpolicy="no-referrer">
-      <ion-icon *ngIf="!userAvatar" name="person-circle" class="fallback-img"></ion-icon>
+
+      <img
+        *ngIf="userAvatar"
+        [src]="userAvatar"
+        alt="Profile"
+        class="profile-img"
+        referrerpolicy="no-referrer"
+      >
+
+      <ion-icon
+        *ngIf="!userAvatar"
+        name="person-circle"
+        class="fallback-img">
+      </ion-icon>
+
     </div>
 
+    <!-- TEXTO -->
     <div class="welcome-text">
-      <p>Hola jugador:</p>
-      <h1>{{ userAlias }}</h1>
+
+      <p>
+        Hola jugador:
+      </p>
+
+      <h1>
+        {{ userAlias }}
+      </h1>
+
     </div>
 
+    <!-- CARD -->
     <div class="empty-state-card">
-      <ion-icon name="game-controller-outline" class="empty-icon"></ion-icon>
-      <h3>Sin torneos activos</h3>
-      <p>Aún no estás inscrito en ningún evento. Únete a una tienda para empezar a jugar.</p>
-    </div>
 
-    <ion-button expand="block" class="scan-btn" (click)="scanQR()">
-      <ion-icon name="qr-code-outline" slot="start"></ion-icon>
-      Escanear QR de Tienda
-    </ion-button>
+      <ion-icon
+        name="game-controller-outline"
+        class="empty-icon">
+      </ion-icon>
+
+      <h3>
+        Sin torneos activos
+      </h3>
+
+      <p>
+        Aún no estás inscrito en ningún evento.
+        Revisa tu perfil para unirte a un gremio.
+      </p>
+
+    </div>
 
   </div>
+
 </ion-content>
 
+<!-- FOOTER -->
+
 <ion-footer class="ion-no-border">
+
   <ion-toolbar class="custom-tab-bar">
+
     <div class="tab-container">
-      <ion-button fill="clear" (click)="irA('/home')" class="tab-btn active">
+
+      <!-- HOME -->
+      <ion-button
+        fill="clear"
+        (click)="irA('/home')"
+        class="tab-btn active"
+      >
         <ion-icon name="home-outline"></ion-icon>
-        <span></span>
       </ion-button>
 
-      <ion-button fill="clear" (click)="irA('/mensajes')" class="tab-btn">
+      <!-- MENSAJES -->
+      <ion-button
+        fill="clear"
+        (click)="irA('/mensajes')"
+        class="tab-btn"
+      >
         <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-        <span></span>
       </ion-button>
 
-      <ion-button fill="clear" (click)="irA('/eventos')" class="tab-btn">
+      <!-- EVENTOS -->
+      <ion-button
+        fill="clear"
+        (click)="irA('/eventos')"
+        class="tab-btn"
+      >
         <ion-icon name="calendar-outline"></ion-icon>
-        <span></span>
       </ion-button>
+
     </div>
+
   </ion-toolbar>
+
 </ion-footer>

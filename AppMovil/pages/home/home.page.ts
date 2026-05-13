@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { getAuth } from 'firebase/auth';
-import { AuthService } from '../../service/auth.service';
-import { UsuarioService } from '../../service/usuario.service';
-import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+
+import {
+  UsuarioService,
+  UsuarioPerfil
+} from '../../service/usuario.service';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +14,15 @@ import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
   standalone: false
 })
 export class HomePage implements OnInit {
+
+  perfil: UsuarioPerfil | null = null;
+
   userAlias: string = 'Cargando...';
+
   userAvatar: string | null = null;
 
   constructor(
     private router: Router,
-    private authService: AuthService,
     private usuarioService: UsuarioService
   ) {}
 
@@ -26,48 +31,45 @@ export class HomePage implements OnInit {
   }
 
   async cargarDatosUsuario() {
+
     const auth = getAuth();
+
     const user = auth.currentUser;
-    
-    if (user) {
-      this.userAvatar = user.photoURL;
 
-      try {
-        const perfil: any = await this.usuarioService.consultarUsuario(user.uid);
-
-        if (perfil && perfil.alias) {
-          this.userAlias = perfil.alias;
-        } else {
-          this.userAlias = user.displayName || 'Usuario';
-        }
-
-      } catch (err: any) {
-        console.error('Error al obtener perfil del microservicio', err);
-        this.userAlias = user.displayName || 'Usuario';
-      }
+    if (!user) {
+      return;
     }
-  }
 
-  async scanQR() {
+    this.userAvatar = user.photoURL;
+
     try {
-      const { camera } = await BarcodeScanner.requestPermissions();
-      if (camera === 'granted' || camera === 'limited') {
-        const { barcodes } = await BarcodeScanner.scan();
-        if (barcodes.length > 0) {
-          alert(`Código de tienda: ${barcodes[0].displayValue}`);
-        }
+
+      const perfil =
+        await this.usuarioService.consultarUsuario(user.uid);
+
+      if (perfil) {
+
+        this.perfil = perfil;
+
+        this.userAlias =
+          perfil.alias ||
+          user.displayName ||
+          'Jugador';
       }
-    } catch (error) {
-      console.error('Error al escanear:', error);
+
+    } catch (err) {
+
+      console.error(
+        'Error al obtener perfil:',
+        err
+      );
+
+      this.userAlias =
+        user.displayName ||
+        'Jugador';
     }
   }
 
-  async logout() {
-    await this.authService.logout();
-    this.router.navigate(['/login'], { replaceUrl: true });
-  }
-
-  // 🔥 NUEVO: Función para la barra de navegación inferior
   irA(ruta: string) {
     this.router.navigate([ruta]);
   }

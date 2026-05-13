@@ -1,67 +1,94 @@
-/* Variables heredadas */
 :host {
   --primary-gradient: linear-gradient(135deg, #ff8a00 0%, #da1b60 50%, #892cdc 100%);
   --dark-bg: #0a0a0c;
-  --glass-effect: rgba(255, 255, 255, 0.04);
-  --input-bg: rgba(255, 255, 255, 0.08);
+  --glass-effect: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glow-shadow: 0 0 15px rgba(218, 27, 96, 0.4);
 }
 
 ion-content.admin-chat-page {
   --background: var(--dark-bg);
   &::part(background) {
-    background: var(--dark-bg) 
-                radial-gradient(circle at top left, rgba(137, 44, 220, 0.1), transparent 40%);
+    background: var(--dark-bg) radial-gradient(circle at top right, rgba(218, 27, 96, 0.07), transparent 60%);
   }
 }
 
 .transparent-toolbar {
-  --background: rgba(10, 10, 12, 0.85);
-  backdrop-filter: blur(15px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  --color: white;
+  --background: rgba(10, 10, 12, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
   
-  .admin-title {
-    font-weight: 800;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
+  .admin-title { 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    font-size: 0.9rem; 
+    letter-spacing: 1.5px; 
+    color: white; 
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
   }
 }
 
-/* LISTA DE CONVERSACIONES (INBOX) */
+/* --- CONTENEDOR DE LISTA (INBOX) --- */
 .inbox-container {
   padding: 16px;
-
+  
   .chat-item {
     background: var(--glass-effect);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
     border-radius: 20px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     padding: 14px;
     display: flex;
     align-items: center;
-    gap: 14px;
-    transition: all 0.2s ease;
+    gap: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
 
-    &:active {
-      transform: scale(0.97);
-      background: rgba(255, 255, 255, 0.1);
+    &:active { 
+      transform: scale(0.96); 
+      background: rgba(255, 255, 255, 0.06);
     }
 
-    .chat-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 16px;
-      background: var(--primary-gradient);
+    /* REPLICANDO ESTILO DE AVATAR DEL HOME */
+    .avatar-container {
+      position: relative;
+      width: 56px;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
-      
+      flex-shrink: 0;
+
+      .glow-ring {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: var(--primary-gradient);
+        padding: 2px; /* Grosor del anillo */
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        box-shadow: var(--glow-shadow);
+      }
+
+      .profile-img, .avatar-letter {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
       .avatar-letter {
+        background: var(--primary-gradient);
         color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-weight: 800;
-        font-size: 1.3rem;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        font-size: 1.4rem;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
       }
     }
 
@@ -69,95 +96,138 @@ ion-content.admin-chat-page {
       flex: 1;
       overflow: hidden;
 
-      .chat-title {
-        color: #ffffff;
-        font-weight: 700;
-        font-size: 1rem;
-        margin-bottom: 2px;
+      .chat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+
+        .chat-title { 
+          color: white; 
+          font-weight: 700; 
+          font-size: 1.05rem; 
+        }
+        
+        .chat-time { 
+          color: rgba(255,255,255,0.35); 
+          font-size: 0.75rem; 
+          font-weight: 500;
+        }
       }
 
-      .chat-sub {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.85rem;
-        white-space: nowrap;
+      .chat-sub { 
+        color: rgba(255,255,255,0.5); 
+        font-size: 0.85rem; 
+        line-height: 1.2;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
         overflow: hidden;
-        text-overflow: ellipsis;
       }
-    }
-    
-    .chat-meta {
-      text-align: right;
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 0.7rem;
     }
   }
 }
 
-/* CHAT DENTRO DE ADMIN (Burbujas) */
+/* --- CHAT ABIERTO --- */
 .chat-container {
-  padding: 16px;
+  padding: 20px 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 
   .message-wrapper {
-    display: flex;
-    flex-direction: column;
-    max-width: 80%;
-
-    &.right {
-      align-self: flex-end;
-      .message-bubble {
-        background: var(--primary-gradient);
-        color: white;
-        border-radius: 18px 18px 2px 18px;
-      }
+    max-width: 85%;
+    
+    &.right { 
+      align-self: flex-end; 
+      .message-bubble { 
+        background: var(--primary-gradient); 
+        color: white; 
+        border-radius: 20px 20px 4px 20px;
+        box-shadow: 0 4px 15px rgba(218, 27, 96, 0.2);
+      } 
     }
 
-    &.left {
-      align-self: flex-start;
-      .message-bubble {
-        background: rgba(255,255,255,0.07);
-        border: 1px solid rgba(255,255,255,0.1);
-        color: white;
-        border-radius: 18px 18px 18px 2px;
-      }
+    &.left { 
+      align-self: flex-start; 
+      .message-bubble { 
+        background: #1c1c22; 
+        color: rgba(255,255,255,0.95); 
+        border-radius: 20px 20px 20px 4px; 
+        border: 1px solid var(--glass-border); 
+      } 
     }
 
-    .message-bubble {
-      padding: 12px 16px;
-      .sender-name {
-        color: #ff8a00;
-        font-size: 0.7rem;
-        font-weight: 800;
-        margin-bottom: 4px;
-      }
-      p { margin: 0; font-size: 0.95rem; }
+    .message-bubble { 
+      padding: 12px 16px; 
+      
+      p { 
+        margin: 0; 
+        font-size: 0.95rem; 
+        line-height: 1.4;
+      } 
     }
   }
 }
 
-/* FOOTER ADMIN */
+/* --- FOOTER Y INPUT --- */
 .glass-footer {
   --background: rgba(10, 10, 12, 0.95);
-  backdrop-filter: blur(20px);
-  padding: 10px 16px 25px 16px;
+  backdrop-filter: blur(25px);
+  padding: 10px 16px 24px; /* Extra padding para bottom safe area */
+  border-top: 1px solid var(--glass-border);
 
   .input-container {
     display: flex;
-    background: var(--input-bg);
-    border-radius: 25px;
-    padding: 2px 2px 2px 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    border-radius: 30px;
+    padding: 6px 6px 6px 18px;
+    border: 1px solid var(--glass-border);
+    
+    .custom-chat-input { 
+      --color: white; 
+      --placeholder-color: rgba(255,255,255,0.3);
+      font-size: 0.95rem;
+    }
 
-    .custom-chat-input { --color: white; }
-    .send-btn { --background: var(--primary-gradient); --border-radius: 50%; }
+    .send-btn { 
+      --background: var(--primary-gradient);
+      --border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      margin: 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+      
+      &:active { transform: scale(0.9); }
+    }
   }
 }
 
+/* --- ESTADOS VACÍOS --- */
 .empty-inbox {
   text-align: center;
   margin-top: 100px;
-  color: rgba(255, 255, 255, 0.2);
-  font-weight: 500;
+  padding: 0 40px;
+
+  .empty-icon-wrapper { 
+    font-size: 64px; 
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+  }
+
+  h3 { 
+    color: white; 
+    font-weight: 700; 
+    font-size: 1.3rem;
+    margin-bottom: 8px; 
+  }
+
+  p {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.9rem;
+  }
 }

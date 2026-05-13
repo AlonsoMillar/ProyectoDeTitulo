@@ -1,0 +1,97 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()" class="back-nav-btn">
+        <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="page-title">El Gremio: Visión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="contact-page">
+  <div class="main-content">
+    
+    <div class="vision-container">
+      <div class="glow-box"></div>
+      
+      <div class="vision-content">
+        <div class="header-inline">
+          <ion-icon name="eye" class="main-icon"></ion-icon>
+          <h2>Nuestra Visión</h2>
+        </div>
+        
+        <p class="main-text">
+          En el multiverso de los juegos de mesa, las tiendas especializadas son los <span>santuarios</span> donde los jugadores forjan su destino. 
+        </p>
+
+        <div class="mission-statement">
+          <strong>Nuestra misión:</strong> potenciar estos espacios mediante la digitalización avanzada y una comunidad conectada.
+        </div>
+        
+        <div class="features-grid">
+          <div class="feature-item">
+            <ion-icon name="flash"></ion-icon>
+            <p>Gestión de eventos 100% en tiempo real.</p>
+          </div>
+          <div class="feature-item">
+            <ion-icon name="chatbubbles"></ion-icon>
+            <p>Comunicación directa tienda-comunidad.</p>
+          </div>
+          <div class="feature-item">
+            <ion-icon name="notifications"></ion-icon>
+            <p>Alertas inteligentes vía Firebase FCM.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="support-container">
+      <div class="support-header">
+        <h3>¿Necesitas Soporte?</h3>
+        <p>Nuestro equipo de conjuradores responderá a tu llamado.</p>
+      </div>
+
+      <div class="interactive-email-card" (click)="copiarEmail()">
+        <div class="icon-wrap">
+          <ion-icon name="mail-open-outline"></ion-icon>
+        </div>
+        <div class="details">
+          <label>CANAL OFICIAL</label>
+          <span>{{ contactoEmail }}</span>
+        </div>
+        <ion-icon name="copy-outline" class="copy-hint"></ion-icon>
+      </div>
+
+      <ion-button expand="block" class="cta-btn" (click)="enviarCorreo()">
+        <ion-icon name="paper-plane" slot="start"></ion-icon>
+        ENVIAR MENSAJE DIRECTO
+      </ion-button>
+    </div>
+
+    <div class="app-version-info">
+      <div class="divider"></div>
+      <p>Desarrollado para el Gremio de Magic & Eventos</p>
+      <span>v1.0.0 - ProgramWork © 2026</span>
+    </div>
+
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="custom-tab-bar">
+    <div class="tab-container" [ngClass]="{'admin-tabs': perfil?.role === 'ADMIN'}">
+      <ion-button fill="clear" (click)="irA(getHomeRoute())" class="tab-btn">
+        <ion-icon [name]="perfil?.role === 'ADMIN' ? 'grid-outline' : 'home-outline'"></ion-icon>
+      </ion-button>
+      
+      <ion-button fill="clear" (click)="irA(getMensajesRoute())" class="tab-btn">
+        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+      </ion-button>
+      
+      <ion-button fill="clear" (click)="irA('/perfil')" class="tab-btn">
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
