@@ -1,15 +1,16 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="transparent-toolbar">
     <ion-buttons slot="start">
-      <ion-button fill="clear" class="back-btn" (click)="irA('/home')">
+      <!-- Ahora usa la lógica de rol para volver -->
+      <ion-button fill="clear" class="back-btn" (click)="volver()">
         <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title class="profile-title">Mi Perfil</ion-title>
+   
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="profile-page">
+<ion-content class="profile-page" [fullscreen]="true">
   <div class="main-content">
     
     <div class="header-section">
@@ -42,6 +43,7 @@
         </div>
       </div>
 
+      <!-- Sección de código de gremio para clientes -->
       <div *ngIf="perfil.role === 'CLIENT'" class="input-group margin-top">
         <label>Código del Gremio</label>
         <div class="field-container" [class.editing]="editMode">

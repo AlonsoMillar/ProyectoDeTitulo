@@ -1,458 +1,180 @@
 :host {
-
-  --primary-gradient:
-    linear-gradient(
-      135deg,
-      #ff8a00 0%,
-      #da1b60 50%,
-      #892cdc 100%
-    );
-
-  --magenta-glow:
-    rgba(218, 27, 96, 0.28);
-
-  --purple-glow:
-    rgba(137, 44, 220, 0.28);
-
-  --dark-bg:
-    #050507;
-
-  --glass-bg:
-    rgba(255, 255, 255, 0.05);
-
-  --glass-border:
-    rgba(255, 255, 255, 0.08);
+  --primary-gradient: linear-gradient(135deg, #ff8a00 0%, #da1b60 50%, #892cdc 100%);
+  --magenta-glow: rgba(218, 27, 96, 0.28);
+  --purple-glow: rgba(137, 44, 220, 0.28);
+  --dark-bg: #050507;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 .home-page {
-
   --background: var(--dark-bg);
-
   &::part(background) {
-
-    background:
-      radial-gradient(
-        circle at 20% 20%,
-        var(--magenta-glow),
-        transparent 40%
-      ),
-
-      radial-gradient(
-        circle at 80% 70%,
-        var(--purple-glow),
-        transparent 40%
-      ),
-
-      #050507;
+    background: radial-gradient(circle at 20% 20%, var(--magenta-glow), transparent 40%),
+                radial-gradient(circle at 80% 70%, var(--purple-glow), transparent 40%), #050507;
   }
 }
 
-/* HEADER */
-
+/* HEADER & TOOLBAR */
 .transparent-toolbar {
-
   --background: transparent;
   --border-width: 0;
-
-  padding: 12px 10px 0 10px;
+  padding: 12px 10px 0;
 }
 
 .client-title {
-
   font-size: 14px;
   font-weight: 800;
-
   letter-spacing: 3px;
   text-transform: uppercase;
-
   color: rgba(255,255,255,0.45);
 }
 
-/* BOTON MENU */
-
 .menu-trigger-btn {
-
   --background: transparent;
-  --background-hover: transparent;
-  --background-activated: transparent;
-
   --box-shadow: none;
-  --padding-start: 6px;
-  --padding-end: 6px;
-
   --border-radius: 50%;
-
   width: 42px;
   height: 42px;
-
-  margin-right: 2px;
-
   transition: 0.25s ease;
-
-  ion-icon {
-
-    font-size: 22px;
-    color: rgba(255,255,255,0.82);
-  }
-
-  &:active {
-
-    transform: scale(0.90);
-  }
+  ion-icon { font-size: 22px; color: rgba(255,255,255,0.82); }
+  &:active { transform: scale(0.9); }
 }
 
-/* POPOVER */
-
+/* POPOVER & MENU */
 ion-popover {
-
-  --background:
-    rgba(15, 15, 18, 0.94);
-
+  --background: rgba(15, 15, 18, 0.94);
   --backdrop-opacity: 0.5;
-
-  --box-shadow:
-    0 15px 40px rgba(0,0,0,0.7);
-
+  --box-shadow: 0 15px 40px rgba(0,0,0,0.7);
   &::part(content) {
-
     border-radius: 22px;
-
-    border:
-      1px solid rgba(255,255,255,0.08);
-
+    border: 1px solid var(--glass-border);
     backdrop-filter: blur(20px);
-
-    overflow: hidden;
   }
 }
 
-.popover-menu-content {
-
-  --background: transparent;
-
-  padding: 10px;
-}
-
-ion-list {
-
-  background: transparent;
-  padding: 6px;
-}
-
+.popover-menu-content { --background: transparent; padding: 10px; }
+ion-list { background: transparent; padding: 6px; }
 ion-item {
-
   --background: transparent;
   --color: rgba(255,255,255,0.85);
-
   --border-radius: 16px;
-
   margin-bottom: 6px;
-
   font-weight: 600;
-
   transition: 0.25s ease;
-
-  ion-icon {
-
-    color: #da1b60;
-    font-size: 20px;
-  }
-
-  &:active {
-
-    transform: scale(0.98);
-  }
-
-  &:hover {
-
-    --background:
-      rgba(255,255,255,0.05);
-  }
+  ion-icon { color: #da1b60; font-size: 20px; }
+  &:active { transform: scale(0.98); }
+  &:hover { --background: rgba(255,255,255,0.05); }
 }
 
-/* MAIN */
-
+/* MAIN CONTENT */
 .main-content {
-
   min-height: 82vh;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   padding: 10px 24px 40px;
 }
 
-/* AVATAR */
-
-.avatar-container {
-
-  position: relative;
-
-  width: 145px;
-  height: 145px;
-
-  margin-bottom: 28px;
-}
-
+/* AVATAR SECTION */
+.avatar-container { position: relative; width: 145px; height: 145px; margin-bottom: 28px; }
 .glow-ring {
-
   position: absolute;
-
   inset: -6px;
-
   border-radius: 50%;
-
   background: var(--primary-gradient);
-
   filter: blur(22px);
-
   opacity: 0.6;
-
-  animation:
-    auraPulse 4s infinite alternate;
+  animation: auraPulse 4s infinite alternate;
 }
 
 .profile-img {
-
   position: relative;
-
   width: 100%;
   height: 100%;
-
   border-radius: 50%;
-
   object-fit: cover;
-
-  border:
-    4px solid rgba(255,255,255,0.95);
-
+  border: 4px solid rgba(255,255,255,0.95);
   z-index: 2;
-
-  box-shadow:
-    0 10px 25px rgba(0,0,0,0.45);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.45);
 }
 
-.fallback-img {
+.fallback-img { font-size: 145px; color: rgba(255,255,255,0.08); }
 
-  font-size: 145px;
-
-  color:
-    rgba(255,255,255,0.08);
-}
-
-/* TEXTO */
-
+/* WELCOME TEXT */
 .welcome-text {
-
   text-align: center;
-
   margin-bottom: 42px;
-
-  p {
-
-    margin: 0;
-
-    font-size: 15px;
-
-    color:
-      rgba(255,255,255,0.35);
-
-    text-transform: uppercase;
-
-    letter-spacing: 3px;
-  }
-
+  p { margin: 0; font-size: 15px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 3px; }
   h1 {
-
     margin-top: 10px;
-
     font-size: 42px;
     font-weight: 900;
-
     line-height: 1;
-
-    background:
-      linear-gradient(
-        to bottom,
-        #ffffff,
-        #bdbdbd
-      );
-
+    background: linear-gradient(to bottom, #ffffff, #bdbdbd);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 }
 
-/* CARD */
-
+/* EMPTY STATE CARD */
 .empty-state-card {
-
   width: 100%;
   max-width: 420px;
-
   padding: 42px 30px;
-
   border-radius: 36px;
-
-  background:
-    rgba(255,255,255,0.04);
-
-  border:
-    1px solid rgba(255,255,255,0.08);
-
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--glass-border);
   backdrop-filter: blur(24px);
-
   text-align: center;
-
-  box-shadow:
-    0 15px 40px rgba(0,0,0,0.45);
-
-  transition:
-    transform 0.3s ease,
-    border 0.3s ease,
-    background 0.3s ease;
-
+  box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+  transition: 0.3s ease;
   &:hover {
-
     transform: translateY(-4px);
-
-    background:
-      rgba(255,255,255,0.06);
-
-    border:
-      1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
   }
+  .empty-icon {
+    font-size: 60px;
+    color: #da1b60;
+    margin-bottom: 22px;
+    filter: drop-shadow(0 0 12px rgba(218,27,96,0.5));
+  }
+  h3 { font-size: 24px; font-weight: 800; color: white; margin-bottom: 14px; }
+  p { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.5); }
 }
 
-.empty-icon {
-
-  font-size: 60px;
-
-  color: #da1b60;
-
-  margin-bottom: 22px;
-
-  filter:
-    drop-shadow(
-      0 0 12px rgba(218,27,96,0.5)
-    );
-}
-
-.empty-state-card h3 {
-
-  font-size: 24px;
-  font-weight: 800;
-
-  color: white;
-
-  margin-bottom: 14px;
-}
-
-.empty-state-card p {
-
-  font-size: 15px;
-
-  line-height: 1.7;
-
-  color:
-    rgba(255,255,255,0.5);
-}
-
-/* TAB BAR */
-
+/* TAB BAR MODIFICADA (SIN PUNTO) */
 .custom-tab-bar {
-
-  --background:
-    rgba(8,8,10,0.92);
-
+  --background: rgba(8,8,10,0.92);
   backdrop-filter: blur(24px);
-
-  border-top:
-    1px solid rgba(255,255,255,0.05);
-
+  border-top: 1px solid rgba(255,255,255,0.05);
   padding: 8px 0 14px;
 }
 
-.tab-container {
-
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
+.tab-container { display: flex; justify-content: space-around; align-items: center; }
 
 .tab-btn {
-
   --background: transparent;
   --box-shadow: none;
-
-  --color:
-    rgba(255,255,255,0.35);
-
+  --color: rgba(255,255,255,0.35);
   width: 54px;
   height: 54px;
-
   border-radius: 18px;
-
   position: relative;
-
   transition: 0.25s ease;
-
-  ion-icon {
-
-    font-size: 24px;
-  }
-
-  &:active {
-
-    transform: scale(0.88);
-  }
-
+  ion-icon { font-size: 24px; }
+  &:active { transform: scale(0.88); }
   &.active {
-
     --color: #da1b60;
-
-    background:
-      rgba(218,27,96,0.08);
-
-    box-shadow:
-      0 0 18px rgba(218,27,96,0.18);
-
-    &::after {
-
-      content: '';
-
-      position: absolute;
-
-      bottom: 4px;
-
-      width: 5px;
-      height: 5px;
-
-      border-radius: 50%;
-
-      background: #da1b60;
-
-      box-shadow:
-        0 0 10px #da1b60;
-    }
+    background: rgba(218,27,96,0.08);
+    box-shadow: 0 0 18px rgba(218,27,96,0.18);
+    /* El bloque ::after ha sido eliminado para quitar el punto */
   }
 }
 
-/* ANIMACIONES */
-
 @keyframes auraPulse {
-
-  from {
-
-    transform: scale(1);
-    opacity: 0.45;
-  }
-
-  to {
-
-    transform: scale(1.08);
-    opacity: 0.8;
-  }
+  from { transform: scale(1); opacity: 0.45; }
+  to { transform: scale(1.08); opacity: 0.8; }
 }

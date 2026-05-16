@@ -90,6 +90,21 @@ const routes: Routes = [
   // =========================================================
   // EVENTOS
   // =========================================================
+  {
+    path: 'eventos',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/eventos/eventos.module').then(m => m.EventosPageModule)
+  },
+  {
+    path: 'evento-detalle',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/evento-detalle/evento-detalle.module').then(m => m.EventoDetallePageModule)
+  },
+  {
+    path: 'evento-form',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./pages/evento-form/evento-form.module').then(m => m.EventoFormPageModule)
+  },
 
   // =========================================================
   // PERFIL
@@ -145,4 +160,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

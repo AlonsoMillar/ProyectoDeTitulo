@@ -1,0 +1,91 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()" class="back-btn" fill="clear">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="client-title">Detalle de Evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-page" [fullscreen]="true">
+  <div class="main-content">
+    
+    <div *ngIf="cargando" class="empty-state-card" style="padding: 20px;">
+      <ion-spinner name="crescent" color="tertiary"></ion-spinner>
+      <p>Cargando información...</p>
+    </div>
+
+    <div *ngIf="!cargando && evento" class="event-detail-container">
+      
+      <div class="empty-state-card event-info-card">
+        <div class="event-header-detail">
+          <h2>{{ evento.nombre }}</h2>
+          <span class="status-badge" [ngClass]="evento.estado?.toLowerCase()">{{ evento.estado }}</span>
+        </div>
+        
+        <p class="organizador-txt">Organizado por: <strong>{{ evento.adminAlias }}</strong></p>
+        
+        <div class="divider"></div>
+        
+        <p class="event-desc">{{ evento.descripcion }}</p>
+
+        <div class="meta-grid">
+          <div class="meta-box">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <p>Fecha</p>
+            <span>{{ evento.fechaEvento | date:'short' }}</span>
+          </div>
+          <div class="meta-box">
+            <ion-icon name="time-outline"></ion-icon>
+            <p>Duración</p>
+            <span>{{ evento.duracionMinutos }} min</span>
+          </div>
+          <div class="meta-box">
+            <ion-icon name="people-outline"></ion-icon>
+            <p>Cupos</p>
+            <span>{{ evento.maxParticipantes }} max</span>
+          </div>
+          <div class="meta-box">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+            <p>Juez Oficial</p>
+            <span>{{ evento.requiereJuez ? 'Sí' : 'No' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acciones de Administrador -->
+      <div *ngIf="esCreador" class="admin-actions-card empty-state-card">
+        <h3>Panel de Control del Evento</h3>
+        
+        <div class="action-buttons">
+          <ion-button *ngIf="evento.estado === 'BORRADOR'" expand="block" class="primary-btn" (click)="cambiarEstado('publicar')">
+            <ion-icon name="megaphone-outline" slot="start"></ion-icon> Publicar Evento
+          </ion-button>
+
+          <ion-button *ngIf="evento.estado === 'PUBLICADO'" expand="block" class="success-btn" (click)="cambiarEstado('iniciar')">
+            <ion-icon name="play-outline" slot="start"></ion-icon> Iniciar Evento
+          </ion-button>
+
+          <ion-button *ngIf="evento.estado === 'EN_CURSO'" expand="block" class="warning-btn" (click)="cambiarEstado('finalizar')">
+            <ion-icon name="stop-circle-outline" slot="start"></ion-icon> Finalizar Evento
+          </ion-button>
+
+          <ion-button expand="block" fill="outline" color="danger" class="danger-btn" (click)="eliminarEvento()">
+            <ion-icon name="trash-outline" slot="start"></ion-icon> Eliminar Evento
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- Acciones de Cliente -->
+      <div *ngIf="!esCreador && evento.estado === 'PUBLICADO'" class="client-actions">
+        <ion-button expand="block" class="primary-btn enroll-btn">
+          Inscribirse al Torneo
+        </ion-button>
+      </div>
+
+    </div>
+
+  </div>
+</ion-content>

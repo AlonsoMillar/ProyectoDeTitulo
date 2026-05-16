@@ -1,0 +1,132 @@
+@import '../home/home.page.scss';
+@import '../eventos/eventos.page.scss';
+
+.back-btn {
+  --color: rgba(255,255,255,0.8);
+  font-size: 24px;
+}
+
+.event-detail-container {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 40px;
+}
+
+.event-info-card {
+  text-align: left;
+  padding: 24px;
+
+  .event-header-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+
+    h2 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(to bottom, #ffffff, #bdbdbd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .organizador-txt {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 20px;
+    strong { color: #da1b60; }
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--glass-border);
+    margin: 20px 0;
+  }
+
+  .event-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 25px;
+  }
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+
+  .meta-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 15px;
+    text-align: center;
+    
+    ion-icon {
+      font-size: 24px;
+      color: #892cdc;
+      margin-bottom: 5px;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    span {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      display: block;
+      margin-top: 5px;
+    }
+  }
+}
+
+.admin-actions-card {
+  padding: 24px;
+  text-align: left;
+  background: rgba(15, 15, 18, 0.6);
+  border-color: rgba(218, 27, 96, 0.3);
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #ff9cbd;
+    text-align: center;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+ion-button {
+  --border-radius: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  height: 48px;
+
+  &.primary-btn { --background: var(--primary-gradient); }
+  &.success-btn { --background: rgba(0, 200, 83, 0.8); }
+  &.warning-btn { --background: rgba(255, 145, 0, 0.8); }
+  &.danger-btn { margin-top: 10px; }
+}
+
+.enroll-btn {
+  margin-top: 10px;
+  --box-shadow: 0 10px 25px rgba(137, 44, 220, 0.4);
+}

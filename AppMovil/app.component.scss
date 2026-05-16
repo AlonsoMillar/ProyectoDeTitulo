@@ -1,24 +1,33 @@
 /* =========================================
    Tesis Project - Tema Global Moderno
    ========================================= */
-:root {
-  /* Gradiente de fondo oscuro y elegante */
-  --app-bg-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-  
-  /* Variables para el efecto Cristal (Glassmorphism) */
+
+:host {
+  /* Variables de Acentos y Cristal */
   --glass-bg: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.15);
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   --glass-blur: blur(12px);
-  
-  /* Acentos */
-  --accent-color: #3880ff;
   --text-light: #f4f5f8;
 }
 
-/* Forzar que el texto general sea claro sobre fondo oscuro */
+/* Configuración del Viewport Real e Infinito */
+ion-app {
+  /* El color base debe ser el más oscuro de tu diseño para evitar destellos */
+  background-color: #050507; 
+}
+
+/* 
+   Vital para el modo infinito: 
+   Evita que las transiciones entre páginas muestren fondos sólidos.
+*/
+ion-router-outlet {
+  background-color: transparent;
+}
+
+/* Forzar legibilidad base */
 ion-content, ion-title, h1, h2, p, ion-label {
-  color: var(--text-light) !important;
+  color: var(--text-light);
 }
 
 /* Clase global para tarjetas de cristal */
@@ -30,4 +39,39 @@ ion-content, ion-title, h1, h2, p, ion-label {
   border-radius: 24px;
   box-shadow: var(--glass-shadow);
   padding: 24px;
+}
+
+/* 
+   Ajuste para que el contenido de las páginas ignore el límite 
+   de la barra de estado y fluya por debajo.
+*/
+.ion-page {
+  justify-content: flex-start;
+}
+/* =========================================
+   Fondo Transparente para Headers Modernos
+   ========================================= */
+
+.transparent-toolbar {
+  /* Modificamos las variables internas de Ionic */
+  --background: transparent !important;
+  --ion-color-base: transparent !important;
+  --border-width: 0 !important;
+}
+
+/* Forzamos que el header flote sobre el contenido */
+ion-header.ion-no-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10; /* Asegura que los botones se puedan clickear */
+  background: transparent;
+}
+
+/* Aseguramos que el contenido ocupe toda la pantalla y el fondo fluya */
+ion-content {
+  /* Si tienes un gradiente de fondo, asegúrate de aplicarlo a la variable --background */
+  /* Ejemplo: --background: radial-gradient(circle at top, #4a00e0, #050507); */
+  --padding-top: 60px; /* Da un poco de aire para que el texto no choque con la hora del celular */
 }

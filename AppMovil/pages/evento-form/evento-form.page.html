@@ -1,0 +1,67 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="transparent-toolbar">
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()" class="back-btn" fill="clear" [disabled]="guardando">
+        <ion-icon name="close-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="client-title">Nuevo Torneo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-page" [fullscreen]="true">
+  <div class="main-content">
+    
+    <div class="empty-state-card form-card">
+      <form [formGroup]="eventoForm" (ngSubmit)="guardarEvento()">
+        
+        <div class="input-group">
+          <ion-label position="stacked">Nombre del Torneo</ion-label>
+          <ion-input type="text" formControlName="nombre" placeholder="Ej. Torneo Modern Magic"></ion-input>
+        </div>
+
+        <div class="input-group">
+          <ion-label position="stacked">Descripción y Reglas</ion-label>
+          <ion-textarea formControlName="descripcion" rows="4" placeholder="Detalla los premios, rondas, etc."></ion-textarea>
+        </div>
+
+        <div class="input-group">
+          <ion-label position="stacked">Fecha y Hora</ion-label>
+          <ion-datetime-button datetime="datetime"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="datetime" formControlName="fechaEvento"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </div>
+
+        <div class="row-inputs">
+          <div class="input-group half-width">
+            <ion-label position="stacked">Duración (min)</ion-label>
+            <ion-input type="number" formControlName="duracionMinutos"></ion-input>
+          </div>
+
+          <div class="input-group half-width">
+            <ion-label position="stacked">Cupo Max</ion-label>
+            <ion-input type="number" formControlName="maxParticipantes"></ion-input>
+          </div>
+        </div>
+
+        <div class="input-group checkbox-group">
+          <ion-checkbox formControlName="requiereJuez" justify="space-between">
+            ¿Requiere Juez Oficial?
+          </ion-checkbox>
+        </div>
+
+        <div class="submit-btn-container">
+          <ion-button type="submit" expand="block" class="primary-btn" [disabled]="eventoForm.invalid || guardando">
+            <ion-spinner *ngIf="guardando" name="crescent"></ion-spinner>
+            <span *ngIf="!guardando">Crear Evento</span>
+          </ion-button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</ion-content>

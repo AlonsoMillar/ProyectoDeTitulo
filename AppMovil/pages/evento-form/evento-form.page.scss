@@ -1,0 +1,93 @@
+@import '../home/home.page.scss';
+
+.back-btn {
+  --color: rgba(255,255,255,0.8);
+  font-size: 26px;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 420px;
+  text-align: left;
+  padding: 24px;
+}
+
+.input-group {
+  margin-bottom: 22px;
+
+  ion-label {
+    color: #ff9cbd;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: block;
+    letter-spacing: 1px;
+  }
+
+  ion-input, ion-textarea {
+    --background: rgba(0,0,0,0.3);
+    --color: white;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    font-size: 15px;
+    
+    &.ion-focused {
+      border-color: rgba(218, 27, 96, 0.6);
+      --background: rgba(0,0,0,0.5);
+    }
+  }
+
+  ion-datetime-button {
+    ::part(native) {
+      background: rgba(0,0,0,0.3);
+      color: white;
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 10px 16px;
+    }
+  }
+}
+
+.row-inputs {
+  display: flex;
+  gap: 15px;
+  
+  .half-width {
+    flex: 1;
+  }
+}
+
+.checkbox-group {
+  ion-checkbox {
+    --checkbox-background-checked: #da1b60;
+    --border-color-checked: #da1b60;
+    color: rgba(255,255,255,0.9);
+    font-size: 15px;
+  }
+}
+
+.submit-btn-container {
+  margin-top: 30px;
+
+  .primary-btn {
+    --background: var(--primary-gradient);
+    --border-radius: 14px;
+    height: 54px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    font-size: 16px;
+    --box-shadow: 0 10px 25px rgba(218,27,96,0.4);
+  }
+}
+
+ion-datetime {
+  --background: rgba(15, 15, 18, 0.95);
+  --title-color: #ff9cbd;
+  --wheel-highlight-background: rgba(218, 27, 96, 0.2);
+  --wheel-highlight-border-radius: 8px;
+  border-radius: 16px;
+}

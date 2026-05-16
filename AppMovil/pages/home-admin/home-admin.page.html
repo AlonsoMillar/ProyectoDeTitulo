@@ -1,149 +1,79 @@
 <ion-header class="ion-no-border">
   <ion-toolbar class="transparent-toolbar">
-
-    <!-- BOTÓN QR -->
     <ion-buttons slot="start">
       <ion-button (click)="goToStoreCode()" class="qr-nav-btn">
         <ion-icon name="qr-code-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
 
-    <!-- TÍTULO -->
-    <ion-title class="admin-title">
-      Panel Admin
-    </ion-title>
+    <ion-title class="admin-title">Panel Admin</ion-title>
 
-    <!-- MENÚ -->
     <ion-buttons slot="end">
-
-      <!-- BOTÓN MENÚ -->
       <ion-button id="admin-menu-trigger" class="menu-trigger-btn">
         <ion-icon name="ellipsis-vertical" slot="icon-only"></ion-icon>
       </ion-button>
 
-      <!-- POPOVER -->
-      <ion-popover
-        trigger="admin-menu-trigger"
-        triggerAction="click"
-        [dismissOnSelect]="true">
-
+      <ion-popover trigger="admin-menu-trigger" triggerAction="click" [dismissOnSelect]="true">
         <ng-template>
           <ion-content class="popover-menu-content">
-
             <ion-list lines="none">
-
               <ion-item button (click)="irA('/perfil')">
                 <ion-icon name="person-outline" slot="start"></ion-icon>
                 <ion-label>Mi Perfil</ion-label>
               </ion-item>
-
               <ion-item button (click)="irA('/contacto')">
                 <ion-icon name="information-circle-outline" slot="start"></ion-icon>
                 <ion-label>Contacto y Visión</ion-label>
               </ion-item>
-
               <ion-item button (click)="goToStoreCode()">
                 <ion-icon name="qr-code-outline" slot="start"></ion-icon>
                 <ion-label>Código QR</ion-label>
               </ion-item>
-
               <ion-item button (click)="logout()">
                 <ion-icon name="log-out-outline" slot="start"></ion-icon>
                 <ion-label>Cerrar Sesión</ion-label>
               </ion-item>
-
             </ion-list>
-
           </ion-content>
         </ng-template>
-
       </ion-popover>
-
     </ion-buttons>
-
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="home-admin-page">
-
+<ion-content class="home-admin-page" [fullscreen]="true">
   <div class="main-content">
-
-    <!-- AVATAR -->
     <div class="avatar-container">
       <div class="glow-ring"></div>
-
-      <img
-        *ngIf="userAvatar"
-        [src]="userAvatar"
-        alt="Profile"
-        class="profile-img"
-        referrerpolicy="no-referrer">
-
-      <ion-icon
-        *ngIf="!userAvatar"
-        name="person-circle"
-        class="fallback-img">
-      </ion-icon>
+      <img *ngIf="userAvatar" [src]="userAvatar" alt="Profile" class="profile-img" referrerpolicy="no-referrer">
+      <ion-icon *ngIf="!userAvatar" name="person-circle" class="fallback-img"></ion-icon>
     </div>
 
-    <!-- TEXTO -->
     <div class="welcome-text">
       <p>Administrador:</p>
       <h1>{{ userAlias }}</h1>
     </div>
 
-    <!-- CARD -->
     <div class="empty-state-card">
-      <ion-icon
-        name="shield-checkmark-outline"
-        class="empty-icon">
-      </ion-icon>
-
+      <ion-icon name="shield-checkmark-outline" class="empty-icon"></ion-icon>
       <h3>Panel de administración</h3>
-
-      <p>
-        Gestiona mensajes, eventos y configuraciones del gremio
-        desde el panel administrativo.
-      </p>
+      <p>Gestiona mensajes, eventos y configuraciones del gremio desde el panel administrativo.</p>
     </div>
-
   </div>
-
 </ion-content>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar class="custom-tab-bar">
-
     <div class="tab-container admin-tabs">
-
-      <ion-button
-        fill="clear"
-        (click)="irA('/home-admin')"
-        class="tab-btn active">
-
+      <ion-button fill="clear" (click)="irA('/home-admin')" class="tab-btn active">
         <ion-icon name="home-outline"></ion-icon>
-
       </ion-button>
-
-      <ion-button
-        fill="clear"
-        (click)="irA('/mensajes-admin')"
-        class="tab-btn">
-
+      <ion-button fill="clear" (click)="irA('/mensajes-admin')" class="tab-btn">
         <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-
       </ion-button>
-
-      <ion-button
-        fill="clear"
-        (click)="irA('/eventos')"
-        class="tab-btn">
-
+      <ion-button fill="clear" (click)="irA('/eventos')" class="tab-btn">
         <ion-icon name="calendar-outline"></ion-icon>
-
       </ion-button>
-
     </div>
-
   </ion-toolbar>
 </ion-footer>

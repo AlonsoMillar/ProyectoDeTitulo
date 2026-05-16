@@ -176,3 +176,30 @@
   border-radius: 12px;
   margin-left: 8px;
 }
+/* =========================================
+   Fondo Transparente para Headers Modernos
+   ========================================= */
+
+.transparent-toolbar {
+  /* Modificamos las variables internas de Ionic */
+  --background: transparent !important;
+  --ion-color-base: transparent !important;
+  --border-width: 0 !important;
+}
+
+/* Forzamos que el header flote sobre el contenido */
+ion-header.ion-no-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10; /* Asegura que los botones se puedan clickear */
+  background: transparent;
+}
+
+/* Aseguramos que el contenido ocupe toda la pantalla y el fondo fluya */
+ion-content {
+  /* Si tienes un gradiente de fondo, asegúrate de aplicarlo a la variable --background */
+  /* Ejemplo: --background: radial-gradient(circle at top, #4a00e0, #050507); */
+  --padding-top: 60px; /* Da un poco de aire para que el texto no choque con la hora del celular */
+}
